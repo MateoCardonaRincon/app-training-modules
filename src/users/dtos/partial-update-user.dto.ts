@@ -1,7 +1,7 @@
 import { IsEmail, IsOptional, IsString, IsUUID } from 'class-validator';
 import { PartialUserInterface } from '../interfaces/partial-user.interface';
 
-export class PartialUpdateUser implements PartialUserInterface {
+export class PartialUpdateUserDto implements PartialUserInterface {
   @IsOptional()
   @IsUUID()
   uuid?: string;

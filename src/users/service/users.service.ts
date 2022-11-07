@@ -1,17 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PartialUpdateUser } from '../dtos/partial-update-user';
+import { PartialUpdateUserDto } from '../dtos/partial-update-user.dto';
 import { UpdateUserDto } from '../dtos/update-user.dto';
 import { UserDto } from '../dtos/user.dto';
-import { users } from '../utils/users';
+import { userList } from '../utils/user-list';
 
 @Injectable()
 export class UsersService {
   getAll(): UserDto[] {
-    return users;
+    return userList;
   }
 
   getUserById(uuid: string): UserDto | NotFoundException {
-    const userFound = users.find((user) => user.uuid === uuid);
+    const userFound = userList.find((user) => user.uuid === uuid);
+
     return (
       userFound ?? new NotFoundException(`User with id ${uuid} does not exist.`)
     );
@@ -25,7 +26,8 @@ export class UsersService {
     uuid: string,
     newUserData: UpdateUserDto,
   ): UpdateUserDto | NotFoundException {
-    const updateThisUser = users.find((user) => user.uuid === uuid);
+    const updateThisUser = userList.find((user) => user.uuid === uuid);
+
     if (updateThisUser) {
       return {
         uuid,
@@ -34,28 +36,33 @@ export class UsersService {
         email: newUserData.email,
       };
     }
+
     return new NotFoundException(`User with id ${uuid} does not exist.`);
   }
 
   updateUserPartially(
     uuid: string,
-    newUserData: PartialUpdateUser,
-  ): PartialUpdateUser | NotFoundException {
-    const updateThisUser = users.find((user) => user.uuid === uuid);
+    newUserData: PartialUpdateUserDto,
+  ): PartialUpdateUserDto | NotFoundException {
+    const updateThisUser = userList.find((user) => user.uuid === uuid);
+
     if (updateThisUser) {
       return {
         uuid,
-        name: newUserData.name || updateThisUser.name,
-        lastname: newUserData.lastname || updateThisUser.lastname,
-        email: newUserData.email || updateThisUser.email,
+        name: newUserData.name ?? updateThisUser.name,
+        lastname: newUserData.lastname ?? updateThisUser.lastname,
+        email: newUserData.email ?? updateThisUser.email,
       };
     }
+
     return new NotFoundException(`User with id ${uuid} does not exist.`);
   }
 
   deleteUserById(uuid: string): boolean {
-    const userToDelete = users.find((user) => user.uuid === uuid);
+    const userToDelete = userList.find((user) => user.uuid === uuid);
+
     if (userToDelete) return true;
+
     return false;
   }
 

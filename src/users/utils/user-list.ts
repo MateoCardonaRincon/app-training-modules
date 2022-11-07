@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { UserInterface } from '../interfaces/user.interface';
 
-export const users: UserInterface[] = [
+export const userList: UserInterface[] = [
   {
     uuid: '1b158c25-2ca9-4bee-9f56-d33e564ae75c',
     name: 'Julián',

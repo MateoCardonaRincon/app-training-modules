@@ -13,7 +13,7 @@ import {
 import { UpdateUserDto } from '../dtos/update-user.dto';
 import { UserDto } from '../dtos/user.dto';
 import { UsersService } from '../service/users.service';
-import { PartialUpdateUser } from '../dtos/partial-update-user';
+import { PartialUpdateUserDto } from '../dtos/partial-update-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -68,8 +68,8 @@ export class UsersController {
         forbidNonWhitelisted: true,
       }),
     )
-    newUserData: PartialUpdateUser,
-  ): PartialUpdateUser | NotFoundException {
+    newUserData: PartialUpdateUserDto,
+  ): PartialUpdateUserDto | NotFoundException {
     return this.usersService.updateUserPartially(uuid, newUserData);
   }
 
