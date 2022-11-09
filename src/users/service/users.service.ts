@@ -13,12 +13,12 @@ export class UsersService {
     return this.users;
   }
 
-  getUserById(uuid: string): UserDto | NotFoundException {
+  getUserById(uuid: string): UserDto {
     const userFound = this.users.find((user) => user.uuid === uuid);
 
-    return (
-      userFound ?? new NotFoundException(`User with id ${uuid} does not exist.`)
-    );
+    if (userFound) return userFound;
+
+    throw new NotFoundException(`User with id ${uuid} does not exist.`);
   }
 
   createUser(user: SaveUserDto): UserDto {
@@ -27,19 +27,11 @@ export class UsersService {
     return newUser;
   }
 
-  updateUser(
-    uuid: string,
-    newUserData: SaveUserDto,
-  ): UserDto | NotFoundException {
+  updateUser(uuid: string, newUserData: SaveUserDto): UserDto {
     const updateThisUser = this.users.find((user) => user.uuid === uuid);
 
     if (updateThisUser) {
-      const updatedUser = {
-        uuid,
-        name: newUserData.name,
-        lastname: newUserData.lastname,
-        email: newUserData.email,
-      };
+      const updatedUser: UserDto = { uuid, ...newUserData };
 
       this.users = this.users.map((user) => {
         if (user.uuid === updatedUser.uuid) return updatedUser;
@@ -50,21 +42,20 @@ export class UsersService {
       return updatedUser;
     }
 
-    return new NotFoundException(`User with id ${uuid} does not exist.`);
+    throw new NotFoundException(`User with id ${uuid} does not exist.`);
   }
 
   updateUserPartially(
     uuid: string,
     newUserData: PartialUpdateUserDto,
-  ): UserDto | NotFoundException {
+  ): UserDto {
     const updateThisUser = this.users.find((user) => user.uuid === uuid);
 
     if (updateThisUser) {
       const updatedUser: UserDto = {
+        ...updateThisUser,
+        ...newUserData,
         uuid,
-        name: newUserData.name ?? updateThisUser.name,
-        lastname: newUserData.lastname ?? updateThisUser.lastname,
-        email: newUserData.email ?? updateThisUser.email,
       };
 
       this.users = this.users.map((user) => {
@@ -76,7 +67,7 @@ export class UsersService {
       return updatedUser;
     }
 
-    return new NotFoundException(`User with id ${uuid} does not exist.`);
+    throw new NotFoundException(`User with id ${uuid} does not exist.`);
   }
 
   deleteUserById(uuid: string): boolean {

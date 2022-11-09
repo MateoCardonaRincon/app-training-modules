@@ -32,7 +32,7 @@ export class UsersController {
 
   @Get(':uuid')
   @UseInterceptors(NullableLastnameInterceptor)
-  getUserById(@Param('uuid') uuid: string): UserDto | NotFoundException {
+  getUserById(@Param('uuid') uuid: string): UserDto {
     return this.usersService.getUserById(uuid);
   }
 
@@ -67,7 +67,7 @@ export class UsersController {
       }),
     )
     newUserData: SaveUserDto,
-  ): UserDto | NotFoundException {
+  ): UserDto {
     return this.usersService.updateUser(uuid, newUserData);
   }
 
@@ -85,7 +85,7 @@ export class UsersController {
       }),
     )
     newUserData: PartialUpdateUserDto,
-  ): PartialUpdateUserDto | NotFoundException {
+  ): PartialUpdateUserDto {
     return this.usersService.updateUserPartially(uuid, newUserData);
   }
 
