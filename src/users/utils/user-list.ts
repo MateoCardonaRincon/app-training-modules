@@ -16,8 +16,7 @@ export const userList: UserInterface[] = [
   },
   {
     uuid: '918ea941-18a9-4ae7-a993-4e4342798578',
-    name: 'Raul',
-    lastname: 'Alzate',
-    email: 'raul.alzate@sofka.com.co',
+    name: 'Ana',
+    email: 'ana.jimenez@gamil.com',
   },
 ];
