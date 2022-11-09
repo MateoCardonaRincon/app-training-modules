@@ -8,7 +8,6 @@ import {
   Post,
   Put,
   ValidationPipe,
-  NotFoundException,
   UseGuards,
   UseInterceptors,
   HttpStatus,
@@ -85,7 +84,7 @@ export class UsersController {
       }),
     )
     newUserData: PartialUpdateUserDto,
-  ): PartialUpdateUserDto {
+  ): UserDto {
     return this.usersService.updateUserPartially(uuid, newUserData);
   }
 

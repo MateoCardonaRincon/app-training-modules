@@ -4,10 +4,11 @@ import { UserDto } from '../dtos/user.dto';
 import { userList } from '../utils/user-list';
 import { SaveUserDto } from '../dtos/save-user.dto';
 import { v4 as uuidv4 } from 'uuid';
+import { UserInterface } from '../interfaces/user.interface';
 
 @Injectable()
 export class UsersService {
-  private users = userList;
+  private users: UserInterface[] = userList;
 
   getAll(): UserDto[] {
     return this.users;
