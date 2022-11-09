@@ -13,13 +13,11 @@ export class NullableLastnameInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data) => {
         if (data instanceof Array) {
-          const modifiedData = data.map((document: UserInterface) => {
-            return document.lastname === undefined
+          return data.map((document: UserInterface) =>
+            document.lastname === undefined
               ? { ...document, lastname: null }
-              : document;
-          });
-
-          return modifiedData;
+              : document,
+          );
         }
 
         return data.lastname === undefined ? { ...data, lastname: null } : data;
