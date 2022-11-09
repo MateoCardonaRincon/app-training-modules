@@ -2,15 +2,25 @@ import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { SaveUserInterface } from '../interfaces/save-user.interface';
 
 export class SaveUserDto implements SaveUserInterface {
-  @IsString()
-  @IsNotEmpty()
+  @IsString({
+    message: 'The field `name` must be of type string',
+  })
+  @IsNotEmpty({
+    message: 'The field `name` can`t be empty',
+  })
   readonly name: string;
 
-  @IsString()
+  @IsString({
+    message: 'The field `lastname` must be of type string',
+  })
   @IsOptional()
   readonly lastname?: string;
 
-  @IsEmail()
-  @IsNotEmpty()
+  @IsEmail({
+    message: 'The field `email` must follow an email format',
+  })
+  @IsNotEmpty({
+    message: 'The field `email` can`t be empty',
+  })
   readonly email: string;
 }

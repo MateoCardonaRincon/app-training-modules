@@ -11,6 +11,7 @@ import {
   NotFoundException,
   UseGuards,
   UseInterceptors,
+  HttpStatus,
 } from '@nestjs/common';
 import { UserDto } from '../dtos/user.dto';
 import { UsersService } from '../service/users.service';
@@ -44,7 +45,7 @@ export class UsersController {
         transform: true,
         whitelist: true,
         forbidNonWhitelisted: true,
-        disableErrorMessages: true,
+        errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE,
       }),
     )
     user: SaveUserDto,
@@ -62,6 +63,7 @@ export class UsersController {
         transform: true,
         whitelist: true,
         forbidNonWhitelisted: true,
+        errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE,
       }),
     )
     newUserData: SaveUserDto,
@@ -79,6 +81,7 @@ export class UsersController {
         transform: true,
         whitelist: true,
         forbidNonWhitelisted: true,
+        errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE,
       }),
     )
     newUserData: PartialUpdateUserDto,
