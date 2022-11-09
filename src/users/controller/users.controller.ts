@@ -10,10 +10,10 @@ import {
   ValidationPipe,
   NotFoundException,
 } from '@nestjs/common';
-import { UpdateUserDto } from '../dtos/update-user.dto';
 import { UserDto } from '../dtos/user.dto';
 import { UsersService } from '../service/users.service';
 import { PartialUpdateUserDto } from '../dtos/partial-update-user.dto';
+import { SaveUserDto } from '../dtos/save-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -38,7 +38,7 @@ export class UsersController {
         forbidNonWhitelisted: true,
       }),
     )
-    user: UserDto,
+    user: SaveUserDto,
   ): UserDto {
     return this.usersService.createUser(user);
   }
@@ -53,8 +53,8 @@ export class UsersController {
         forbidNonWhitelisted: true,
       }),
     )
-    newUserData: UpdateUserDto,
-  ): UpdateUserDto | NotFoundException {
+    newUserData: SaveUserDto,
+  ): UserDto | NotFoundException {
     return this.usersService.updateUser(uuid, newUserData);
   }
 
@@ -77,9 +77,4 @@ export class UsersController {
   deleteUserById(@Param('uuid') uuid: string): boolean {
     return this.usersService.deleteUserById(uuid);
   }
-
-  // @Get('message')
-  // getHello(): string {
-  //   return this.usersService.getHello();
-  // }
 }
